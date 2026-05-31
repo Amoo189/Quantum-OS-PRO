@@ -1,0 +1,20 @@
+{
+  "name": "QMOS Ultra",
+  "short_name": "QMOS Ultra",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "SA.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "SA.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
