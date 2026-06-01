@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <title>Quantum OS — Final</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#07010f" />
+  <meta name="author" content="Saleh Amoo" />
+  <meta name="description" content="Quantum OS - Futuristic Web Desktop OS" />
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="SA.png" type="image/png" />
+  <link rel="shortcut icon" href="SA.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="ii6k.css" />
+</head>
+<body>
+  <!-- Boot -->
+  <div id="boot">
+    <div class="boot-inner">
+      <div class="boot-logo-ring"></div>
+      <img src="SA.png" alt="QMOS" class="boot-logo" />
+      <h1>Quantum OS</h1>
+      <p>Initializing Quantum Desktop...</p>
+    </div>
+  </div>
+
+  <!-- Lock Screen -->
+  <div id="lockScreen">
+    <div class="lock-wallpaper"></div>
+    <div class="lock-orb orb1"></div>
+    <div class="lock-orb orb2"></div>
+    <div class="lock-content">
+      <div class="lock-clock" id="lockClock">00:00</div>
+      <div class="lock-date" id="lockDate">---</div>
+
+      <h2 class="neon-title">Quantum OS</h2>
+      <p id="lockHint" class="muted">Swipe up or drag up to unlock</p>
+
+      <div id="passwordBox" class="hidden lock-pass-box">
+        <input type="password" id="lockPass" placeholder="Password" inputmode="numeric" autocomplete="current-password" />
+        <div class="lock-actions">
+          <button class="btn" id="unlockBtn">Unlock</button>
+        </div>
+        <p id="lockError" class="lock-error"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login -->
+  <div id="login">
+    <div class="login-bg-glow glow-a"></div>
+    <div class="login-bg-glow glow-b"></div>
+    <div class="card login-card">
+      <div class="login-avatar">
+        <img src="SA.png" alt="avatar" />
+      </div>
+      <h3 class="neon-title" style="margin-bottom:14px;">Welcome to QMOS</h3>
+      <p class="muted login-sub">نام کاربری برای ذخیره امتیازها و شخصی‌سازی محیط استفاده می‌شود</p>
+      <input id="username" placeholder="Username" autocomplete="username" />
+      <button class="btn" id="loginBtn" style="margin-top:14px;">Enter Desktop</button>
+    </div>
+  </div>
+
+  <!-- Desktop -->
+  <div id="desktop" class="desktop hidden-desktop">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span class="brand-title">Quantum OS</span>
+      </div>
+
+      <div class="top-center">
+        <div class="search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input id="appSearch" type="text" placeholder="Search apps..." />
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="chip" data-open-global="leaderboard" title="Leaderboard">
+          <i class="fa-solid fa-trophy"></i>
+        </button>
+        <button class="chip" data-open-global="settings" title="Settings">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+        <button class="chip chip-danger" data-open-global="shutdown" title="Shutdown">
+          <i class="fa-solid fa-power-off"></i>
+        </button>
+      </div>
+    </header>
+
+    <section class="hero-panel">
+      <div class="hero-left">
+        <h1 class="hero-title">Welcome, <span id="heroUser">Guest</span></h1>
+        <p class="hero-sub">A futuristic desktop experience for mobile & desktop</p>
+      </div>
+      <div class="hero-right">
+        <div class="hero-stat">
+          <span class="hero-stat-label">Time</span>
+          <span id="heroTime" class="hero-stat-value">--:--</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-label">Apps</span>
+          <span id="heroAppsCount" class="hero-stat-value">0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="filters" id="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="pinned">Pinned</button>
+      <button class="filter" data-filter="games">Games</button>
+      <button class="filter" data-filter="tools">Tools</button>
+      <button class="filter" data-filter="web">Web</button>
+      <button class="filter" data-filter="system">System</button>
+      <button class="filter" data-filter="media">Media</button>
+    </section>
+
+    <main class="apps" id="apps" aria-label="Apps Grid"></main>
+
+    <!-- Dock -->
+    <nav class="dock-wrap">
+      <div class="dock" id="dock"></div>
+    </nav>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="box" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div class="modal-head-left">
+          <span class="modal-dot red"></span>
+          <span class="modal-dot yellow"></span>
+          <span class="modal-dot green"></span>
+        </div>
+        <button class="btn btn-ghost" id="closeModalBtn">Close</button>
+      </div>
+      <div id="content" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <!-- Context Menu -->
+  <div id="contextMenu" class="context-menu hidden">
+    <button data-cm="open"><i class="fa-solid fa-up-right-and-down-left-from-center"></i> Open</button>
+    <button data-cm="pin"><i class="fa-solid fa-thumbtack"></i> Pin / Unpin</button>
+    <button data-cm="dock"><i class="fa-solid fa-square-plus"></i> Add / Remove Dock</button>
+    <button data-cm="info"><i class="fa-solid fa-circle-info"></i> Info</button>
+  </div>
+
+  <!-- Audio -->
+  <audio id="welcomeMusic" preload="auto">
+    <source src="Soft Piano Dramatic Modern Classical Composition B (2).mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- PWA Exit -->
+  <button id="pwa-exit-btn" class="pwa-exit-btn" type="button">Exit App</button>
+
+  <script src="ii6k.js"></script>
+</body>
+</html>
